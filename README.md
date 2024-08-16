@@ -1,5 +1,5 @@
 <p align="center">
-    <h1 align="center">Self-Supervised_Pretraining_For_Segmentation</h1>
+    <h1 align="center">SelfPretrain-SegFinetune</h1>
 </p>
 <p align="center">
     <em>Pre-text Pre-training -> Segmentation Fine-tuning pipeline</em>
@@ -35,14 +35,14 @@
 
 ##  Overview
 
-The Self-Supervised_Pretraining_For_Segmentation project is designed to optimize image segmentation models through self-supervised learning techniques, including extensive data augmentation and contrastive learning techniques. The project includes sophisticated neural network architectures with ViT as encoder and MLP as decoder and leverages contrastive learning durning pre-training. Core experiments within the project assess performance variations using diverse training datasets and different piplines.
+The SelfPretrain-SegFinetune project is designed to optimize image segmentation models through self-supervised learning techniques, including extensive data augmentation and contrastive learning techniques. The project includes sophisticated neural network architectures with ViT as encoder and MLP as decoder and leverages contrastive learning durning pre-training. Core experiments within the project assess performance variations using diverse training datasets and different piplines.
 
 ---
 
 ##  Repository Structure
 
 ```sh
-└── Self-supervised_pretraining_for_segmentation/
+└── SelfPretrain-SegFinetune/
     ├── data_augmentation.py
     ├── data_utils.py
     ├── instruction.pdf
@@ -80,7 +80,7 @@ The Self-Supervised_Pretraining_For_Segmentation project is designed to optimize
 | [data_utils.py](data_utils.py)               | `Data_utils.py` establishes tools for handling image datasets crucial for contrastive learning, including classes for loading and transforming both augmented and original images. It provisions functionality for ensuring image correct format in both training and testing phases. |
 | [losses.py](losses.py)                       | `Losses.py` introduces specialized loss functions, including ContrastiveLoss for pre-training, and DiceLoss for fine-tuning. |
 | [metrics.py](metrics.py)                     | `Metrics.py` defines functions for model evaluation, specifically computing pixel-wise accuracy and Intersection over Union (IoU) score. |
-| [models.py](models.py)                       | `Models.py` defines models essential for pre-text and segmentation tasks, including a Masked Autoencoder and a Decoder.   |
+| [models.py](models.py)                       | `Models.py` defines models essential for pre-text and segmentation tasks, including an Autoencoder and a Decoder.   |
 | [requirements.txt](requirements.txt)         | `Requirements.txt` specifies the necessary libraries for this project.  |
 | [utils.py](utils.py)                         | Facilitates visualization of segmentation results within the SelfSup-SegFinetune project, enhancing comparison between ground-truth and predicted segmentation masks.                        |
 
@@ -118,12 +118,12 @@ This folder contains the experiments in this project, in both python scripts and
 > 1. Clone the repository:
 >
 > ```console
-> $ git clone https://github.com/HanchengZuo/Self-supervised_pretraining_for_segmentation.git
+> $ git clone https://github.com/kangchengX/SelfPretrain-SegFinetune.git
 > ```
 >
 > 2. Change to the project directory:
 > ```console
-> $ cd Self-supervised_pretraining_for_segmentation
+> $ cd SelfPretrain-SegFinetune
 > ```
 >
 > 3. Install the dependencies:
