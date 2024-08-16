@@ -17,7 +17,7 @@ current_dir = os.getcwd()
 parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 from data_utils import ContDataset, Transform
-from models import Decoder, MaskedAutoEncoder
+from models import Decoder, AutoEncoder
 from losses import ContrastiveLoss, DiceLoss
 from metrics import pixel_wise_accuracy, evaluate_model_performance
 from data_augmentation import DataAugmentation
@@ -106,7 +106,7 @@ dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=False)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 encoder = vit_b_16(pretrained=False).to(device)
 decoder = Decoder(1000, 512, 3 * 224 * 224).to(device)
-pre_model = MaskedAutoEncoder(encoder, decoder).to(device)
+pre_model = AutoEncoder(encoder, decoder).to(device)
 optimizer = optim.Adam(pre_model.parameters(), lr=pre_train['learning_rate'])
 mask = torch.rand(size=(1, 3, 224, 224)) > 0.5
 mask = mask.to(device)

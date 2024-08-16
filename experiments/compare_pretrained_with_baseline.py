@@ -19,7 +19,7 @@ from utils import test_visualization
 from data_augmentation import DataAugmentation
 from metrics import pixel_wise_accuracy, evaluate_model_performance
 from losses import ContrastiveLoss, DiceLoss
-from models import Decoder, MaskedAutoEncoder
+from models import Decoder, AutoEncoder
 from data_utils import ContDataset, Transform
 
 
@@ -100,7 +100,7 @@ dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=False)
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 encoder = vit_b_16(pretrained=False).to(device)
 decoder = Decoder(1000, 512, 3 * 224 * 224).to(device)
-pre_model = MaskedAutoEncoder(encoder, decoder).to(device)
+pre_model = AutoEncoder(encoder, decoder).to(device)
 optimizer = optim.Adam(pre_model.parameters(), lr=pre_train['learning_rate'])
 mask = torch.rand(size=(1, 3, 224, 224)) > 0.5
 mask = mask.to(device)
@@ -259,7 +259,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # Initialize the baseline model components
 encoder = vit_b_16(pretrained=False).to(device)
 decoder = Decoder(1000, 512, 3*224*224).to(device)
-fine_model_without_pre = MaskedAutoEncoder(encoder, decoder).to(device)
+fine_model_without_pre = AutoEncoder(encoder, decoder).to(device)
 mask = torch.ones(size=(1, 3, 224, 224))
 mask = mask.to(device)
 # Set up the optimizer for the baseline model
