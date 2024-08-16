@@ -23,50 +23,81 @@ class ContrastiveLoss(nn.Module):
         neg_dist = Func.pairwise_distance(anchor, negative)
 
         # Calculate the contrastive loss
-        loss = torch.mean((pos_dist ** 2) +
-                          torch.clamp(self.margin - neg_dist, min=0.0) ** 2)
+        loss = torch.mean((pos_dist ** 2) + torch.clamp(self.margin - neg_dist, min=0.0) ** 2)
 
         return loss
 
 
-contrastive_loss = ContrastiveLoss(margin=1.0)
+class DiceLoss(nn.Module):
+    """The Dice Loss class"""
+    def __init__(self, smooth: float | None = 1.0):
+        """
+        Initialize the class.
 
+        Args:
+            smooth (float): smooth parameter for dice loss. Default to `1.0`.
+        """
+        self.smooth = smooth
+    
+    def forward(self, pred: torch.Tensor, target: torch.Tensor):
+        _, num_classes, _, _ = pred.shape
+        target = target - 1  # convert values from 1-3 to 0-2
 
-def dice_loss(pred: torch.Tensor, target: torch.Tensor, smooth: float | None = 1.0):
-    '''
-    Calculate dice loss.
+        assert target.min() >= 0 and target.max() < num_classes, 'target contains invalid class indices'
 
-    Args:
-        pred (Tensor): output of model, (batch_size, num_class, width, height).
-        target (Tensor): true prediction for eac pixel, (batch_size, width, height).
-        smooth (float): smooth parameter for dice loss. Default to `1.0`.
+        # Convert logits to probabilities
+        pred = torch.nn.functional.softmax(pred, dim=1)
 
-    Return:
-        dice_loss (float): dice loss.
-    '''
+        # convert targets, trimap, to one shot
+        # (batch_size, width, height) -> (batch_size, 3, width, height)
+        targets_one_hot = torch.nn.functional.one_hot(target, num_classes).permute(0, 3, 1, 2)
+        targets_one_hot = targets_one_hot.type_as(pred)
 
-    _, num_classes, _, _ = pred.shape
-    target = target - 1  # convert values from 1-3 to 0-2
+        # calculate dice_score for each (batch,class)
+        # sum over width and height
+        intersection = torch.sum(pred * targets_one_hot, dim=(2, 3))
+        union = torch.sum(pred, dim=(2, 3)) + torch.sum(targets_one_hot, dim=(2, 3))
+        dice_score = (2. * intersection + self.smooth) / (union + self.smooth)
 
-    assert target.min() >= 0 and target.max(
-    ) < num_classes, 'target contains invalid class indices'
+        dice_loss = 1. - dice_score.mean()  # aveerage over batch and num_classes
 
-    # Convert logits to probabilities
-    pred = torch.nn.functional.softmax(pred, dim=1)
+        return dice_loss
 
-    # convert targets, trimap, to one shot
-    # (batch_size, width, height) -> (batch_size, 3, width, height)
-    targets_one_hot = torch.nn.functional.one_hot(
-        target, num_classes).permute(0, 3, 1, 2)
-    targets_one_hot = targets_one_hot.type_as(pred)
+# def dice_loss(pred: torch.Tensor, target: torch.Tensor, smooth: float | None = 1.0):
+#     '''
+#     Calculate dice loss.
 
-    # calculate dice_score for each (batch,class)
-    # sum over width and height
-    intersection = torch.sum(pred * targets_one_hot, dim=(2, 3))
-    union = torch.sum(pred, dim=(2, 3)) + \
-        torch.sum(targets_one_hot, dim=(2, 3))
-    dice_score = (2. * intersection + smooth) / (union + smooth)
+#     Args:
+#         pred (Tensor): output of model, (batch_size, num_class, width, height).
+#         target (Tensor): true prediction for eac pixel, (batch_size, width, height).
+#         smooth (float): smooth parameter for dice loss. Default to `1.0`.
 
-    dice_loss = 1. - dice_score.mean()  # aveerage over batch and num_classes
+#     Return:
+#         dice_loss (float): dice loss.
+#     '''
 
-    return dice_loss
+#     _, num_classes, _, _ = pred.shape
+#     target = target - 1  # convert values from 1-3 to 0-2
+
+#     assert target.min() >= 0 and target.max(
+#     ) < num_classes, 'target contains invalid class indices'
+
+#     # Convert logits to probabilities
+#     pred = torch.nn.functional.softmax(pred, dim=1)
+
+#     # convert targets, trimap, to one shot
+#     # (batch_size, width, height) -> (batch_size, 3, width, height)
+#     targets_one_hot = torch.nn.functional.one_hot(
+#         target, num_classes).permute(0, 3, 1, 2)
+#     targets_one_hot = targets_one_hot.type_as(pred)
+
+#     # calculate dice_score for each (batch,class)
+#     # sum over width and height
+#     intersection = torch.sum(pred * targets_one_hot, dim=(2, 3))
+#     union = torch.sum(pred, dim=(2, 3)) + \
+#         torch.sum(targets_one_hot, dim=(2, 3))
+#     dice_score = (2. * intersection + smooth) / (union + smooth)
+
+#     dice_loss = 1. - dice_score.mean()  # aveerage over batch and num_classes
+
+#     return dice_loss

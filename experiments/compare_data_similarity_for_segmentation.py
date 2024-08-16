@@ -17,7 +17,7 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 from data_utils import ContDataset, Transform
 from models import Decoder, MaskedAutoEncoder
-from losses import contrastive_loss, dice_loss
+from losses import ContrastiveLoss, DiceLoss
 from metrics import pixel_wise_accuracy, evaluate_model_performance
 from data_augmentation import DataAugmentation
 from utils import test_visualization
@@ -54,6 +54,9 @@ fine_tune_training_config = {
     'learning_rate': 1e-4  # Learning rate in the pre-training phase
 }
 
+# loss object
+dice_loss = DiceLoss()
+contrastive_loss = ContrastiveLoss()
 
 # # Pre-Train and Fine-tuning of pre-trained models （Use of pet-related pre-training data）
 
@@ -172,8 +175,7 @@ test_dataset = torch.utils.data.Subset(full_dataset, test_indices)
 
 
 print(f"Fine-tuning Original dataset size: {total_size}")
-print(
-    f"Fine-tuning Used dataset size: {used_data_size} ({fine_tune_dataset_split['use_data_ratio']*100}%)")
+print(f"Fine-tuning Used dataset size: {used_data_size} ({fine_tune_dataset_split['use_data_ratio']*100}%)")
 print(f"Fine-tuning Training dataset size: {len(train_dataset)}")
 print(f"Fine-tuning Testing dataset size: {len(test_dataset)}")
 

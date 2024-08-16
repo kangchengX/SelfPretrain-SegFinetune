@@ -18,7 +18,7 @@ parent_dir = os.path.dirname(current_dir)
 sys.path.append(parent_dir)
 from data_utils import ContDataset, Transform
 from models import Decoder, MaskedAutoEncoder
-from losses import contrastive_loss, dice_loss
+from losses import ContrastiveLoss, DiceLoss
 from metrics import pixel_wise_accuracy, evaluate_model_performance
 from data_augmentation import DataAugmentation
 from utils import test_visualization
@@ -56,6 +56,10 @@ fine_tune_training_config = {
 # Fine-tuning dataset size ratios
 # Example sizes: 10%, 50%, and 100% of the dataset
 dataset_sizes = [0.1, 0.5, 1.0]
+
+# loss object
+dice_loss = DiceLoss()
+contrastive_loss = ContrastiveLoss()
 
 
 # # Pre-Train

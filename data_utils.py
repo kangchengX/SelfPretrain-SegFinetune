@@ -115,7 +115,7 @@ class Transform:
         Initialize the class.
 
         Args:
-            image_size (tuple[int]): (width, height) of the output shape
+            image_size (tuple[int]): (width, height) of the output shape.
         """
         self.image_size = image_size
         self.transform = transforms.Compose([

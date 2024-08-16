@@ -18,7 +18,7 @@ sys.path.append(parent_dir)
 from utils import test_visualization
 from data_augmentation import DataAugmentation
 from metrics import pixel_wise_accuracy, evaluate_model_performance
-from losses import contrastive_loss, dice_loss
+from losses import ContrastiveLoss, DiceLoss
 from models import Decoder, MaskedAutoEncoder
 from data_utils import ContDataset, Transform
 
@@ -53,6 +53,9 @@ fine_tune_training_config = {
     'learning_rate': 1e-4  # Learning rate in the pre-training phase
 }
 
+# loss object
+dice_loss = DiceLoss()
+contrastive_loss = ContrastiveLoss()
 
 # Pre-Train
 
