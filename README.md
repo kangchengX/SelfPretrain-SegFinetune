@@ -38,6 +38,7 @@
 The SelfPretrain-SegFinetune project is designed to optimize image segmentation models through self-supervised learning techniques, including extensive data augmentation and contrastive learning techniques. The project includes autoencoder with ViT as encoder and MLP as decoder and leverages contrastive learning durning pre-training. Core experiments within the project assess performance variations using diverse training datasets and different piplines.
 
 ### Example Result
+
 ![Fine-tuned the model with only 10% data](Images/compare_pretrained_model_finetuning_sizes/fine-tuned_model_with_data_ratio_10.0%_0.png)
 
 ---

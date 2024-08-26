@@ -4,7 +4,7 @@ from torch.utils.data import DataLoader
 
 
 def pixel_wise_accuracy(pred: torch.Tensor, target: torch.Tensor) -> float:
-    '''
+    """
     Calculate pixe-wise accuracy.
 
     Args:
@@ -12,7 +12,7 @@ def pixel_wise_accuracy(pred: torch.Tensor, target: torch.Tensor) -> float:
         target (Tensor): ground truth, trimap.
     Returns:
         accuracy (float): pixel accuracy.
-    '''
+    """
 
     pred_tri = torch.argmax(pred, axis=1)
     target = target - 1
