@@ -7,7 +7,7 @@ import imgaug.augmenters as iaa
 import numpy as np
 
 class DataAugmentation:
-    """Class for data augmentation"""
+    """Class for data augmentation."""
 
     def __init__(self, original_path: str, augmented_path: str, num_images: int):
         """Initialize the class.
