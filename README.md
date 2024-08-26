@@ -16,7 +16,7 @@
 </p>
 
 <br><!-- TABLE OF CONTENTS -->
-<details>
+<details open>
   <summary>Table of Contents</summary><br>
 
 - [Overview](#overview)
@@ -35,7 +35,10 @@
 
 ##  Overview
 
-The SelfPretrain-SegFinetune project is designed to optimize image segmentation models through self-supervised learning techniques, including extensive data augmentation and contrastive learning techniques. The project includes sophisticated neural network architectures with ViT as encoder and MLP as decoder and leverages contrastive learning durning pre-training. Core experiments within the project assess performance variations using diverse training datasets and different piplines.
+The SelfPretrain-SegFinetune project is designed to optimize image segmentation models through self-supervised learning techniques, including extensive data augmentation and contrastive learning techniques. The project includes autoencoder with ViT as encoder and MLP as decoder and leverages contrastive learning durning pre-training. Core experiments within the project assess performance variations using diverse training datasets and different piplines.
+
+### Example Result
+![Fine-tuned the model with only 10% data](Images/compare_pretrained_model_finetuning_sizes/fine-tuned_model_with_data_ratio_10.0%_0.png)
 
 ---
 
@@ -76,12 +79,12 @@ The SelfPretrain-SegFinetune project is designed to optimize image segmentation 
 
 | File                                 | Summary |
 | ---                                  | --- |
-| [data_augmentation.py](data_augmentation.py) | `DataAugmentation.py` enables the enhancement of pre-training image datasets by applying various transformations and augmentations, supporting improved model generalization within the project, crucial for experiments involving pre-trained model evaluations and segmentation tasks. |
-| [data_utils.py](data_utils.py)               | `Data_utils.py` establishes tools for handling image datasets crucial for contrastive learning, including classes for loading and transforming both augmented and original images. It provisions functionality for ensuring image correct format in both training and testing phases. |
-| [losses.py](losses.py)                       | `Losses.py` introduces specialized loss functions, including ContrastiveLoss for pre-training, and DiceLoss for fine-tuning. |
-| [metrics.py](metrics.py)                     | `Metrics.py` defines functions for model evaluation, specifically computing pixel-wise accuracy and Intersection over Union (IoU) score. |
-| [models.py](models.py)                       | `Models.py` defines models essential for pre-text and segmentation tasks, including an Autoencoder and a Decoder.   |
-| [requirements.txt](requirements.txt)         | `Requirements.txt` specifies the necessary libraries for this project.  |
+| [data_augmentation.py](data_augmentation.py) |  Enables the enhancement of pre-training image datasets by applying various transformations and augmentations, supporting improved model generalization within the project, crucial for experiments involving pre-trained model evaluations and segmentation tasks. |
+| [data_utils.py](data_utils.py)               | Establishes tools for handling image datasets crucial for contrastive learning, including classes for loading and transforming both augmented and original images. It provisions functionality for ensuring image correct format in both training and testing phases. |
+| [losses.py](losses.py)                       | Introduces specialized loss functions, including ContrastiveLoss for pre-training, and DiceLoss for fine-tuning. |
+| [metrics.py](metrics.py)                     | Defines functions for model evaluation, specifically computing pixel-wise accuracy and Intersection over Union (IoU) score. |
+| [models.py](models.py)                       | Defines models essential for pre-text and segmentation tasks, including an Autoencoder and a Decoder.   |
+| [requirements.txt](requirements.txt)         | Specifies the necessary libraries for this project.  |
 | [utils.py](utils.py)                         | Facilitates visualization of segmentation results within the SelfSup-SegFinetune project, enhancing comparison between ground-truth and predicted segmentation masks.                        |
 
 
@@ -208,6 +211,6 @@ The purpose of this experiment is to compare the pre-text pre-training -> segmen
 
 ##  Acknowledgments
 
-Thanks all the 8 members of our team.
+Thanks all the 8 members of our team - Gao, Yuefeng; Shi, Yunfan; Wu, Yifan; Xu, Kangcheng; Xue, Hongjia; Zhang, Ze; Zhuang, Yan; Zuo, Hancheng.
 
 ---
