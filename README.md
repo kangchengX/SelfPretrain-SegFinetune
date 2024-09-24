@@ -39,7 +39,8 @@ The SelfPretrain-SegFinetune project is designed to optimize image segmentation 
 
 ### Example Result
 
-![Fine-tuned the model with only 10% data](Images/compare_pretrained_model_finetuning_sizes/fine-tuned_model_with_data_ratio_10.0%_0.png)
+<img src="Images/compare_pretrained_model_finetuning_sizes/fine-tuned_model_with_data_ratio_10.0%25_0.png" alt="example results" />
+
 
 ---
 
