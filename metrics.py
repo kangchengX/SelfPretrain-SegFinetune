@@ -63,11 +63,11 @@ def iou_score(pred: torch.Tensor, target: torch.Tensor, smooth: float | None = 1
 
 
 def evaluate_model_performance(
-        model: nn.Module, 
-        dataloader: DataLoader, 
-        device: torch.device, 
-        mask: torch.Tensor, 
-        model_description: str
+    model: nn.Module, 
+    dataloader: DataLoader, 
+    device: torch.device, 
+    mask: torch.Tensor, 
+    model_description: str
 ):
     """
     Evaluate the model on given dataloader to compute accuracy and IoU score.

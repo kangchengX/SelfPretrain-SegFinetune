@@ -8,11 +8,11 @@ from typing import Tuple
 
 
 def create_segmentation_visual(
-        image: np.ndarray, 
-        mask: np.ndarray,
-        color_background: tuple, 
-        color_edge: tuple,
-        transparency: float
+    image: np.ndarray, 
+    mask: np.ndarray,
+    color_background: tuple, 
+    color_edge: tuple,
+    transparency: float
 ):
     """
     Create visulization image for segmentation
@@ -39,15 +39,15 @@ def create_segmentation_visual(
 
 
 def visualize_segmentation_comparison(
-        images: torch.Tensor,
-        true_masks: torch.Tensor,
-        pred_masks: torch.Tensor,
-        num_images: int,
-        color_background: Tuple[int, int, int] | None = (255, 255, 255),
-        color_edge: Tuple[int, int, int] | None = (255, 0, 0),
-        transparency: float | None = 0.75,
-        subtitle: str | None = "Segmentation Comparison",
-        save_path: str | None = None
+    images: torch.Tensor,
+    true_masks: torch.Tensor,
+    pred_masks: torch.Tensor,
+    num_images: int,
+    color_background: Tuple[int, int, int] | None = (255, 255, 255),
+    color_edge: Tuple[int, int, int] | None = (255, 0, 0),
+    transparency: float | None = 0.75,
+    subtitle: str | None = "Segmentation Comparison",
+    save_path: str | None = None
 ):
     """Visualize segmentation results
 
@@ -132,13 +132,13 @@ def visualize_segmentation_comparison(
 
 
 def test_visualization(
-        model: nn.Module, 
-        loader: DataLoader, 
-        mask: torch.Tensor,
-        device: torch.device, 
-        subtitle: str, 
-        save_path: str | None, 
-        num_images: int | None = 3
+    model: nn.Module, 
+    loader: DataLoader, 
+    mask: torch.Tensor,
+    device: torch.device, 
+    subtitle: str, 
+    save_path: str | None, 
+    num_images: int | None = 3
 ):
     """
     Visualize segmentation results on test set
